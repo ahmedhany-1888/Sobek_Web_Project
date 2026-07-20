@@ -1,52 +1,6 @@
 import { Link } from 'react-router-dom'
+import { useLang } from '../i18n.jsx'
 import hero from '../assets/hero.png'
-
-const services = [
-  {
-    icon: 'erp',
-    title: 'ERP System',
-    desc: 'All-in-one system for inventory, sales, CRM, and operations.',
-  },
-  {
-    icon: 'hr',
-    title: 'HR Management',
-    desc: 'Employees, attendance, payroll, and requests in one platform.',
-  },
-  {
-    icon: 'web',
-    title: 'Web Development',
-    desc: 'Responsive, secure web applications for every browser and device.',
-  },
-  {
-    icon: 'mobile',
-    title: 'Mobile Development',
-    desc: 'Android and iOS applications tailored to business needs.',
-  },
-  {
-    icon: 'it',
-    title: 'IT Solutions',
-    desc: 'Secure infrastructure that keeps your business connected.',
-  },
-  {
-    icon: 'learn',
-    title: 'E-learning',
-    desc: 'Smart, scalable platform for modern digital learning.',
-  },
-]
-
-const industries = [
-  { icon: 'health', label: 'Healthcare' },
-  { icon: 'construction', label: 'Construction' },
-  { icon: 'retail', label: 'Retail' },
-  { icon: 'ecommerce', label: 'E-commerce' },
-  { icon: 'logistics', label: 'Logistics' },
-  { icon: 'education', label: 'Education' },
-]
-
-const trusted = [
-  'Retail', 'Healthcare', 'Logistics', 'Education', 'Construction',
-  'E-commerce', 'Hospitality', 'Manufacturing', 'Real Estate',
-]
 
 export function ServiceIcon({ name }) {
   const stroke = { fill: 'none', stroke: '#1173d4', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' }
@@ -155,29 +109,28 @@ export function IndustryIcon({ name }) {
 }
 
 export default function Home() {
+  const { t } = useLang()
+  const h = t.home
   return (
     <main>
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
             <h1>
-              <span className="serif-blue">One Platform.</span>
+              <span className="serif-blue">{h.heroTitleSerif}</span>
               <br />
-              Endless Possibilities.
+              {h.heroTitle}
             </h1>
-            <p className="lead">
-              We build powerful digital systems that transform how businesses
-              operate.
-            </p>
+            <p className="lead">{h.heroLead}</p>
             <div className="btn-row">
               <Link to="/book" className="btn btn-primary">
-                Request demo <span className="arrow">↗</span>
+                {h.requestDemo} <span className="arrow">↗</span>
               </Link>
               <Link to="/book" className="btn btn-primary">
-                Book an appointment
+                {h.bookAppointment}
               </Link>
             </div>
-            <p className="trial-note">1 Month Free Trial – No Payment Needed</p>
+            <p className="trial-note">{h.trialNote}</p>
           </div>
           <div className="hero-art">
             <img src={hero} alt="Inukta platform on desktop and mobile" />
@@ -187,23 +140,21 @@ export default function Home() {
 
       <section className="trusted">
         <div className="container">
-          <h2 className="section-title">
-            Trusted by businesses across diverse industries.
-          </h2>
+          <h2 className="section-title">{h.trustedTitle}</h2>
         </div>
         <div className="pill-row">
-          {trusted.map((t) => (
-            <span className="pill" key={t}>{t}</span>
+          {h.trusted.map((p) => (
+            <span className="pill" key={p}>{p}</span>
           ))}
         </div>
       </section>
 
       <section className="services-grid-section">
         <div className="container">
-          <h2 className="section-title">Our Services</h2>
+          <h2 className="section-title">{h.ourServices}</h2>
           <div className="service-cards">
-            {services.map((s) => (
-              <Link to="/services" className="service-card" key={s.title}>
+            {h.services.map((s) => (
+              <Link to="/services" className="service-card" key={s.icon}>
                 <div className="service-card-icon">
                   <ServiceIcon name={s.icon} />
                 </div>
@@ -217,13 +168,11 @@ export default function Home() {
 
       <section className="industries">
         <div className="container">
-          <h2 className="section-title">Industries We Serve</h2>
-          <p className="section-sub">
-            We build solutions for businesses across various sectors.
-          </p>
+          <h2 className="section-title">{h.industriesTitle}</h2>
+          <p className="section-sub">{h.industriesSub}</p>
           <div className="industry-row">
-            {industries.map((i) => (
-              <div className="industry" key={i.label}>
+            {h.industries.map((i) => (
+              <div className="industry" key={i.icon}>
                 <IndustryIcon name={i.icon} />
                 <span>{i.label}</span>
               </div>
@@ -234,9 +183,9 @@ export default function Home() {
 
       <section className="cta-band">
         <div className="container center">
-          <h2 className="section-title">Ready to Transform Your Business?</h2>
+          <h2 className="section-title">{h.ctaTitle}</h2>
           <Link to="/book" className="btn btn-primary btn-lg">
-            Request demo <span className="arrow">↗</span>
+            {h.requestDemo} <span className="arrow">↗</span>
           </Link>
         </div>
       </section>

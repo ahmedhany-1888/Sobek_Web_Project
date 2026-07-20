@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
+import { useLang } from '../i18n.jsx'
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const MONTHS_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-const DOW = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+const INUKTA_EMAIL = 'info@inukta.com'
 
 export default function Book() {
+  const { t } = useLang()
+  const b = t.book
   const today = new Date()
   const [year] = useState(today.getFullYear())
   const [month, setMonth] = useState(today.getMonth())
@@ -27,27 +28,44 @@ export default function Book() {
     return rows
   }, [year, month])
 
-  const dateLabel = day ? `${MONTHS_FULL[month]} ${day}, ${year}` : null
+  const dateLabel = day ? `${b.monthsFull[month]} ${day}, ${year}` : null
   const hourValid = /^([1-9]|1[0-2])$/.test(hour)
   const timeLabel = hourValid ? `${hour}:${minute} ${meridiem}` : null
 
+  // Opens Google Calendar with a 1-hour event that invites info@inukta.com,
+  // so the meeting lands on Inukta's calendar when the visitor saves it.
   function confirm() {
+    let h24 = parseInt(hour, 10) % 12
+    if (meridiem === 'PM') h24 += 12
+    const start = new Date(year, month, day, h24, 0, 0)
+    const end = new Date(start.getTime() + 60 * 60 * 1000)
+    const fmt = (d) =>
+      `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}` +
+      `T${String(d.getHours()).padStart(2, '0')}${String(d.getMinutes()).padStart(2, '0')}00`
+    const url =
+      'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      `&text=${encodeURIComponent(b.eventTitle)}` +
+      `&details=${encodeURIComponent(b.eventDetails)}` +
+      `&add=${INUKTA_EMAIL}` +
+      `&dates=${fmt(start)}/${fmt(end)}`
+    window.open(url, '_blank', 'noopener')
+    setConfirmed(true)
+  }
+
+  function emailFallback() {
     const subject = encodeURIComponent('Appointment request — Inukta')
     const body = encodeURIComponent(
       `I would like to book an appointment on ${dateLabel} at ${timeLabel}.`,
     )
-    window.location.href = `mailto:info@inukta.com?subject=${subject}&body=${body}`
-    setConfirmed(true)
+    window.location.href = `mailto:${INUKTA_EMAIL}?subject=${subject}&body=${body}`
   }
 
   return (
     <main>
       <section className="hero hero-center compact">
         <div className="container center">
-          <h1 className="serif-blue">Book an appointment</h1>
-          <p className="lead">
-            Pick a date and time that suits you — we’ll take it from there.
-          </p>
+          <h1 className="serif-blue">{b.title}</h1>
+          <p className="lead">{b.lead}</p>
         </div>
       </section>
 
@@ -56,13 +74,13 @@ export default function Book() {
           {/* Calendar — per the design's date picker element */}
           <div className="card picker-card">
             <div className="cal-head">
-              <span>{MONTHS_FULL[month]} {year}</span>
+              <span>{b.monthsFull[month]} {year}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9l6 6 6-6" /></svg>
             </div>
             <div className="cal-body">
               <table className="cal-table">
                 <thead>
-                  <tr>{DOW.map((d) => <th key={d}>{d}</th>)}</tr>
+                  <tr>{b.dow.map((d) => <th key={d}>{d}</th>)}</tr>
                 </thead>
                 <tbody>
                   {weeks.map((row, ri) => (
@@ -85,7 +103,7 @@ export default function Book() {
                 </tbody>
               </table>
               <div className="month-rail">
-                {MONTHS.map((m, i) => (
+                {b.months.map((m, i) => (
                   <button
                     key={m}
                     type="button"
@@ -104,29 +122,29 @@ export default function Book() {
                 disabled={!day}
                 onClick={() => setDateApplied(true)}
               >
-                Apply
+                {b.apply}
               </button>
             </div>
           </div>
 
           {/* Time — per the design's "Enter time" element */}
           <div className="card picker-card time-card">
-            <p className="time-caption">ENTER TIME</p>
+            <p className="time-caption">{b.enterTime}</p>
             <div className="time-inputs">
               <div className="time-cell">
                 <input
                   value={hour}
                   onChange={(e) => setHour(e.target.value.replace(/\D/g, '').slice(0, 2))}
                   placeholder=""
-                  aria-label="Hour"
+                  aria-label={b.hour}
                   className={hour && !hourValid ? 'bad' : ''}
                 />
-                <span>Hour</span>
+                <span>{b.hour}</span>
               </div>
               <div className="time-colon">:</div>
               <div className="time-cell">
                 <div className="minute-box">{minute}</div>
-                <span>Minute</span>
+                <span>{b.minute}</span>
               </div>
               <div className="ampm">
                 <button type="button" className={meridiem === 'AM' ? 'active' : ''} onClick={() => setMeridiem('AM')}>AM</button>
@@ -136,23 +154,23 @@ export default function Book() {
             <div className="time-foot">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5c6470" strokeWidth="1.8"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l4 2" /></svg>
               <div className="time-actions">
-                <button type="button" className="text-btn" onClick={() => { setHour(''); setMeridiem('AM') }}>CANCEL</button>
-                <button type="button" className="text-btn" disabled={!hourValid}>OK</button>
+                <button type="button" className="text-btn" onClick={() => { setHour(''); setMeridiem('AM') }}>{b.cancel}</button>
+                <button type="button" className="text-btn" disabled={!hourValid}>{b.ok}</button>
               </div>
             </div>
           </div>
 
           {/* Summary */}
           <div className="card summary-card">
-            <h3 className="serif-blue">Your appointment</h3>
+            <h3 className="serif-blue">{b.yourAppointment}</h3>
             <ul>
               <li>
-                <span>Date</span>
-                <strong>{dateApplied && dateLabel ? dateLabel : 'Pick a date and press Apply'}</strong>
+                <span>{b.date}</span>
+                <strong>{dateApplied && dateLabel ? dateLabel : b.pickDate}</strong>
               </li>
               <li>
-                <span>Time</span>
-                <strong>{timeLabel || 'Enter an hour'}</strong>
+                <span>{b.time}</span>
+                <strong>{timeLabel || b.enterHour}</strong>
               </li>
             </ul>
             <button
@@ -161,9 +179,14 @@ export default function Book() {
               disabled={!(dateApplied && dateLabel && timeLabel)}
               onClick={confirm}
             >
-              {confirmed ? 'Opening your email app…' : 'Confirm booking'}
+              {confirmed ? b.opening : b.confirm}
             </button>
-            <p className="trial-note">1 Month Free Trial – No Payment Needed</p>
+            {dateApplied && timeLabel && (
+              <button type="button" className="text-btn email-fallback" onClick={emailFallback}>
+                {b.orEmail}
+              </button>
+            )}
+            <p className="trial-note">{b.trialNote}</p>
           </div>
         </div>
       </section>

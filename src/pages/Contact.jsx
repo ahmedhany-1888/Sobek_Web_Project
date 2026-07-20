@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { useLang } from '../i18n.jsx'
 
 const infoRows = [
   {
-    label: 'Email',
+    key: 'email',
     value: 'info@inukta.com',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1173d4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -12,8 +13,7 @@ const infoRows = [
     ),
   },
   {
-    label: 'Phone',
-    value: '+20 XXX XXX XXXX',
+    key: 'phone',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1173d4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 5c0 8 7 15 15 15l2-4-5-2-2 2c-3-1-5-3-6-6l2-2-2-5-4 2z" />
@@ -21,8 +21,7 @@ const infoRows = [
     ),
   },
   {
-    label: 'Location',
-    value: 'Cairo, Egypt',
+    key: 'location',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1173d4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z" />
@@ -31,8 +30,7 @@ const infoRows = [
     ),
   },
   {
-    label: 'Working Hours',
-    value: '24/7',
+    key: 'hours',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1173d4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="9" />
@@ -42,16 +40,9 @@ const infoRows = [
   },
 ]
 
-const fields = [
-  'ERP System',
-  'HR Management',
-  'Mobile & Web Development',
-  'IT Infrastructure',
-  'E-Learning',
-  'Other',
-]
-
 export default function Contact() {
+  const { t } = useLang()
+  const c = t.contact
   const [sent, setSent] = useState(false)
 
   function handleSubmit(e) {
@@ -71,10 +62,8 @@ export default function Contact() {
     <main>
       <section className="hero hero-center compact">
         <div className="container center">
-          <h1 className="serif-blue">Contact Us</h1>
-          <p className="lead">
-            Let’s talk about how we can help your business grow.
-          </p>
+          <h1 className="serif-blue">{c.title}</h1>
+          <p className="lead">{c.lead}</p>
         </div>
       </section>
 
@@ -86,18 +75,16 @@ export default function Contact() {
                 <rect x="3" y="5" width="18" height="14" rx="2" />
                 <path d="M3 7l9 6 9-6" />
               </svg>
-              Get In Touch
+              {c.getInTouch}
             </h3>
-            <p className="card-sub">
-              We’re here to help you build the right solution.
-            </p>
+            <p className="card-sub">{c.getInTouchSub}</p>
             <ul className="info-list">
               {infoRows.map((r) => (
-                <li key={r.label}>
+                <li key={r.key}>
                   {r.icon}
                   <div>
-                    <span className="info-label">{r.label}</span>
-                    <span className="info-value">{r.value}</span>
+                    <span className="info-label">{c.infoLabels[r.key]}</span>
+                    <span className="info-value">{r.value || c.infoValues[r.key]}</span>
                   </div>
                 </li>
               ))}
@@ -109,36 +96,36 @@ export default function Contact() {
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1173d4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 4L11 14M21 4l-7 17-3-7-7-3 17-7z" />
               </svg>
-              Send Us a Message
+              {c.sendUs}
             </h3>
             <form className="contact-form" onSubmit={handleSubmit}>
               <label>
-                <span>Full Name</span>
-                <input name="name" type="text" placeholder="Full Name" required />
+                <span>{c.fullName}</span>
+                <input name="name" type="text" placeholder={c.fullName} required />
               </label>
               <label>
-                <span>Company Name</span>
-                <input name="company" type="text" placeholder="Company Name" />
+                <span>{c.company}</span>
+                <input name="company" type="text" placeholder={c.company} />
               </label>
               <label>
-                <span>Phone Number</span>
-                <input name="phone" type="tel" placeholder="Phone Number" />
+                <span>{c.phone}</span>
+                <input name="phone" type="tel" placeholder={c.phone} />
               </label>
               <label>
-                <span>Field</span>
+                <span>{c.field}</span>
                 <select name="field" defaultValue="">
-                  <option value="" disabled>Field</option>
-                  {fields.map((f) => (
+                  <option value="" disabled>{c.field}</option>
+                  {c.fields.map((f) => (
                     <option key={f} value={f}>{f}</option>
                   ))}
                 </select>
               </label>
               <label>
-                <span>Message</span>
-                <textarea name="message" rows="5" placeholder="How can we help?" required />
+                <span>{c.message}</span>
+                <textarea name="message" rows="5" placeholder={c.messagePlaceholder} required />
               </label>
               <button type="submit" className="btn btn-primary">
-                {sent ? 'Opening your email app…' : 'Send Message'}
+                {sent ? c.opening : c.send}
               </button>
             </form>
           </div>

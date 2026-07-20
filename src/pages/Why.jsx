@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useLang } from '../i18n.jsx'
 import dash from '../assets/dash.png'
 
-const benefits = [
+const benefitIcons = [
   {
-    title: 'Save Cost',
-    desc: 'Reduce your business expenses and avoid unnecessary spending.',
     icon: (
       <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="#1173d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M8 30l8-8 6 6 12-12M34 16h6v6" />
@@ -13,8 +12,6 @@ const benefits = [
     ),
   },
   {
-    title: 'Save Time',
-    desc: 'Get tasks done faster with smart automation.',
     icon: (
       <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="#1173d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="24" cy="26" r="14" />
@@ -23,8 +20,6 @@ const benefits = [
     ),
   },
   {
-    title: 'Reduce Workload',
-    desc: 'Minimize manual work and simplify daily operations.',
     icon: (
       <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="#1173d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="30" cy="12" r="5" />
@@ -33,8 +28,6 @@ const benefits = [
     ),
   },
   {
-    title: 'Secure Your Data',
-    desc: 'Keep your data safe and accessible on the cloud.',
     icon: (
       <svg width="26" height="26" viewBox="0 0 48 48" fill="none" stroke="#1173d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="24" cy="22" r="9" />
@@ -46,28 +39,28 @@ const benefits = [
 ]
 
 export default function Why() {
+  const { t } = useLang()
+  const w = t.why
   return (
     <main>
       <section className="hero hero-center compact">
         <div className="container center">
-          <h1 className="serif-blue">Why Inukta?</h1>
-          <p className="why-sub">Engineering Digital Excellence</p>
-          <p className="lead">
-            Precision-built solutions designed to scale, perform, and lead.
-          </p>
+          <h1 className="serif-blue">{w.title}</h1>
+          <p className="why-sub">{w.sub}</p>
+          <p className="lead">{w.lead}</p>
           <div className="btn-row center-row">
-            <Link to="/book" className="btn btn-primary">Request demo</Link>
-            <Link to="/services" className="btn btn-primary">View Services</Link>
+            <Link to="/book" className="btn btn-primary">{w.requestDemo}</Link>
+            <Link to="/services" className="btn btn-primary">{w.viewServices}</Link>
           </div>
         </div>
       </section>
 
       <section>
         <div className="container benefit-grid">
-          {benefits.map((b) => (
+          {w.benefits.map((b, i) => (
             <div className="card benefit-card" key={b.title}>
               <h3 className="serif-blue benefit-title">
-                {b.icon}
+                {benefitIcons[i].icon}
                 {b.title}
               </h3>
               <p>{b.desc}</p>
@@ -80,11 +73,8 @@ export default function Why() {
         <div className="container">
           <div className="card built-card">
             <div className="built-copy">
-              <h3 className="serif-blue">Built Around Your Business</h3>
-              <p>
-                Every solution is tailored to your workflows, operations, and
-                growth strategy.
-              </p>
+              <h3 className="serif-blue">{w.builtTitle}</h3>
+              <p>{w.builtDesc}</p>
             </div>
             <img src={dash} alt="Inukta dashboard" />
           </div>
@@ -93,25 +83,20 @@ export default function Why() {
 
       <section className="more-than">
         <div className="container center">
-          <h2 className="serif-blue cta-serif">More Than a Service Provider</h2>
-          <p className="lead">
-            Inukta is your long-term technology partner — supporting your
-            business at every stage of growth.
-          </p>
+          <h2 className="serif-blue cta-serif">{w.moreTitle}</h2>
+          <p className="lead">{w.moreLead}</p>
         </div>
       </section>
 
       <section className="cta-band">
         <div className="container center">
-          <h2 className="serif-blue cta-serif">Ready to Build Smarter?</h2>
-          <p className="lead">
-            Let’s create solutions that move your business forward.
-          </p>
+          <h2 className="serif-blue cta-serif">{w.readyTitle}</h2>
+          <p className="lead">{w.readyLead}</p>
           <div className="btn-row center-row">
             <Link to="/book" className="btn btn-primary">
-              Request demo <span className="arrow">↗</span>
+              {w.requestDemo} <span className="arrow">↗</span>
             </Link>
-            <Link to="/book" className="btn btn-primary">Book an appointment</Link>
+            <Link to="/book" className="btn btn-primary">{w.bookAppointment}</Link>
           </div>
         </div>
       </section>

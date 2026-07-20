@@ -1,0 +1,417 @@
+import { createContext, useContext, useEffect, useState } from 'react'
+
+const T = {
+  en: {
+    nav: {
+      services: 'Services',
+      contact: 'Contact',
+      why: 'Why Inukta?',
+      book: 'Book an appointment',
+      langLabel: 'العربية',
+    },
+    footer: {
+      about: 'About Us',
+      services: 'Services',
+      demo: 'Request a demo',
+      tagline: 'We build solutions for businesses across various sectors.',
+      rights: 'All rights reserved',
+      privacy: 'Privacy Policy',
+    },
+    home: {
+      heroTitleSerif: 'One Platform.',
+      heroTitle: 'Endless Possibilities.',
+      heroLead: 'We build powerful digital systems that transform how businesses operate.',
+      requestDemo: 'Request demo',
+      bookAppointment: 'Book an appointment',
+      trialNote: '1 Month Free Trial – No Payment Needed',
+      trustedTitle: 'Trusted by businesses across diverse industries.',
+      trusted: ['Retail', 'Healthcare', 'Logistics', 'Education', 'Construction', 'E-commerce', 'Hospitality', 'Manufacturing', 'Real Estate'],
+      ourServices: 'Our Services',
+      services: [
+        { icon: 'erp', title: 'ERP System', desc: 'All-in-one system for inventory, sales, CRM, and operations.' },
+        { icon: 'hr', title: 'HR Management', desc: 'Employees, attendance, payroll, and requests in one platform.' },
+        { icon: 'web', title: 'Web Development', desc: 'Responsive, secure web applications for every browser and device.' },
+        { icon: 'mobile', title: 'Mobile Development', desc: 'Android and iOS applications tailored to business needs.' },
+        { icon: 'it', title: 'IT Solutions', desc: 'Secure infrastructure that keeps your business connected.' },
+        { icon: 'learn', title: 'E-learning', desc: 'Smart, scalable platform for modern digital learning.' },
+      ],
+      industriesTitle: 'Industries We Serve',
+      industriesSub: 'We build solutions for businesses across various sectors.',
+      industries: [
+        { icon: 'health', label: 'Healthcare' },
+        { icon: 'construction', label: 'Construction' },
+        { icon: 'retail', label: 'Retail' },
+        { icon: 'ecommerce', label: 'E-commerce' },
+        { icon: 'logistics', label: 'Logistics' },
+        { icon: 'education', label: 'Education' },
+      ],
+      ctaTitle: 'Ready to Transform Your Business?',
+    },
+    services: {
+      heroSerif: 'Endless Possibilities',
+      heroRest: ' for Your Business.',
+      lead: 'From IT infrastructure to custom web and mobile development, explore solutions built to grow with you.',
+      ourServices: 'Our Services',
+      keyFeatures: 'Key Features',
+      cards: [
+        {
+          icon: 'erp',
+          title: 'ERP System',
+          sub: 'An all-in-one system to manage business operations, finance, and resources',
+          imageClass: 'wide',
+          features: [
+            ['Centralized System', 'Manage all departments (HR, finance, sales, inventory) in one platform.'],
+            ['Financial Management', 'Track expenses, revenues, taxes, and generate accurate reports.'],
+            ['Inventory & Warehouse', 'Monitor stock, manage purchases, and track items using barcode or QR scanning.'],
+            ['Sales & CRM', 'Track customers, manage sales, and improve client relationships.'],
+            ['Operations Management', 'Organize daily workflows and improve team coordination.'],
+            ['Reports & Analytics', 'Real-time dashboards for better decision-making.'],
+          ],
+        },
+        {
+          icon: 'hr',
+          title: 'HR Management System',
+          sub: 'A complete system to manage employees, attendance, tasks, and operations in one platform.',
+          imageClass: 'tall',
+          features: [
+            ['Payroll Management', 'Automated salary calculations, deductions, and payments with high accuracy.'],
+            ['Advanced Attendance', 'Face recognition with liveness detection and GPS tracking for accurate clock-in/out. Supports multiple locations, overtime, late, and absence tracking.'],
+            ['Requests System', 'Manage HR & IT requests (leave, permissions, support) with approval workflows and notifications.'],
+            ['Task Management', 'Assign tasks, set deadlines, track progress (To Do / In Progress / Done), and manage attachments.'],
+            ['Performance Tracking', 'Evaluate employee performance with structured reports and insights.'],
+            ['Mobile & Notifications', 'Access all features on mobile and web with real-time alerts.'],
+          ],
+        },
+        {
+          icon: 'mobile',
+          title: 'Mobile & Web Development',
+          sub: 'Modern applications and websites designed to deliver seamless digital experiences.',
+          imageClass: 'tall',
+          features: [
+            ['Custom Mobile App Development', 'Build Android and iOS applications tailored to business needs.'],
+            ['Web Application Development', 'Develop responsive and secure web applications for all browsers and devices.'],
+            ['Cross-Platform Solutions', 'Create apps that work across multiple platforms efficiently.'],
+            ['UI/UX Design', 'Design intuitive and modern user experiences.'],
+            ['Maintenance & Support', 'Continuous updates, security improvements, and performance optimization.'],
+          ],
+        },
+        {
+          icon: 'it',
+          title: 'IT Infrastructure Solutions',
+          sub: 'Secure IT infrastructure that keeps your business connected, efficient, and protected.',
+          imageClass: 'wide',
+          features: [
+            ['Domain Registration & Management', 'Register and manage your business domains with full control and reliability.'],
+            ['Professional Business Email Setup', 'Create secure, branded email accounts for professional communication.'],
+            ['Secure Network Infrastructure', 'Design and implement safe and stable network environments for your operations.'],
+            ['Scalable Cloud Solutions', 'Deploy flexible cloud systems that grow with your business needs.'],
+            ['Reliable System Support', 'Ongoing technical support to maintain performance, security, and uptime.'],
+          ],
+        },
+        {
+          icon: 'learn',
+          title: 'E-Learning System',
+          sub: 'Smart, scalable platform for modern digital learning.',
+          imageClass: 'wide',
+          features: [
+            ['Smart Online Assessments', 'Automated quizzes, assessments, and real-time performance tracking.'],
+            ['Live Interactive Sessions', 'Integrate live classes, webinars, and meetings using Zoom API.'],
+            ['Secure Cloud-Based Storage', 'Store and manage course content securely with high performance and protection.'],
+            ['Powerful Course Management', 'Create, organize, and update courses easily and flexibly.'],
+            ['Enhances learning experience, improves engagement, and simplifies education management.', ''],
+          ],
+        },
+      ],
+      savesTitle: 'What You Save With Us',
+      saves: ['Save Cost', 'Save Time', 'Reduce Workload', 'Secure Data'],
+      ctaTitle: 'Ready to grow your business?',
+      contactUs: 'Contact Us',
+    },
+    contact: {
+      title: 'Contact Us',
+      lead: 'Let’s talk about how we can help your business grow.',
+      getInTouch: 'Get In Touch',
+      getInTouchSub: 'We’re here to help you build the right solution.',
+      infoLabels: { email: 'Email', phone: 'Phone', location: 'Location', hours: 'Working Hours' },
+      infoValues: { phone: '+20 XXX XXX XXXX', location: 'Cairo, Egypt', hours: '24/7' },
+      sendUs: 'Send Us a Message',
+      fullName: 'Full Name',
+      company: 'Company Name',
+      phone: 'Phone Number',
+      field: 'Field',
+      message: 'Message',
+      messagePlaceholder: 'How can we help?',
+      send: 'Send Message',
+      opening: 'Opening your email app…',
+      fields: ['ERP System', 'HR Management', 'Mobile & Web Development', 'IT Infrastructure', 'E-Learning', 'Other'],
+    },
+    why: {
+      title: 'Why Inukta?',
+      sub: 'Engineering Digital Excellence',
+      lead: 'Precision-built solutions designed to scale, perform, and lead.',
+      requestDemo: 'Request demo',
+      viewServices: 'View Services',
+      benefits: [
+        { title: 'Save Cost', desc: 'Reduce your business expenses and avoid unnecessary spending.' },
+        { title: 'Save Time', desc: 'Get tasks done faster with smart automation.' },
+        { title: 'Reduce Workload', desc: 'Minimize manual work and simplify daily operations.' },
+        { title: 'Secure Your Data', desc: 'Keep your data safe and accessible on the cloud.' },
+      ],
+      builtTitle: 'Built Around Your Business',
+      builtDesc: 'Every solution is tailored to your workflows, operations, and growth strategy.',
+      moreTitle: 'More Than a Service Provider',
+      moreLead: 'Inukta is your long-term technology partner — supporting your business at every stage of growth.',
+      readyTitle: 'Ready to Build Smarter?',
+      readyLead: 'Let’s create solutions that move your business forward.',
+      bookAppointment: 'Book an appointment',
+    },
+    book: {
+      title: 'Book an appointment',
+      lead: 'Pick a date and time that suits you — we’ll take it from there.',
+      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      dow: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      apply: 'Apply',
+      enterTime: 'ENTER TIME',
+      hour: 'Hour',
+      minute: 'Minute',
+      cancel: 'CANCEL',
+      ok: 'OK',
+      yourAppointment: 'Your appointment',
+      date: 'Date',
+      time: 'Time',
+      pickDate: 'Pick a date and press Apply',
+      enterHour: 'Enter an hour',
+      confirm: 'Confirm booking',
+      opening: 'Opening Google Calendar…',
+      orEmail: 'or send us an email instead',
+      trialNote: '1 Month Free Trial – No Payment Needed',
+      eventTitle: 'Meeting with Inukta',
+      eventDetails: 'Appointment requested via the Inukta website.',
+    },
+  },
+
+  ar: {
+    nav: {
+      services: 'الخدمات',
+      contact: 'تواصل معنا',
+      why: 'لماذا إينوكتا؟',
+      book: 'احجز موعدًا',
+      langLabel: 'English',
+    },
+    footer: {
+      about: 'من نحن',
+      services: 'الخدمات',
+      demo: 'اطلب عرضًا تجريبيًا',
+      tagline: 'نقدّم حلولًا للشركات في مختلف القطاعات.',
+      rights: 'جميع الحقوق محفوظة',
+      privacy: 'سياسة الخصوصية',
+    },
+    home: {
+      heroTitleSerif: 'منصة واحدة.',
+      heroTitle: 'إمكانيات بلا حدود.',
+      heroLead: 'نبني أنظمة رقمية قوية تغيّر طريقة عمل الشركات.',
+      requestDemo: 'اطلب عرضًا تجريبيًا',
+      bookAppointment: 'احجز موعدًا',
+      trialNote: 'شهر تجريبي مجاني – بدون أي دفع',
+      trustedTitle: 'تثق بنا الشركات في مختلف القطاعات.',
+      trusted: ['تجارة التجزئة', 'الرعاية الصحية', 'الخدمات اللوجستية', 'التعليم', 'الإنشاءات', 'التجارة الإلكترونية', 'الضيافة', 'التصنيع', 'العقارات'],
+      ourServices: 'خدماتنا',
+      services: [
+        { icon: 'erp', title: 'نظام ERP', desc: 'نظام متكامل لإدارة المخزون والمبيعات وعلاقات العملاء والعمليات.' },
+        { icon: 'hr', title: 'إدارة الموارد البشرية', desc: 'الموظفون والحضور والرواتب والطلبات في منصة واحدة.' },
+        { icon: 'web', title: 'تطوير المواقع', desc: 'تطبيقات ويب متجاوبة وآمنة لكل المتصفحات والأجهزة.' },
+        { icon: 'mobile', title: 'تطوير تطبيقات الجوال', desc: 'تطبيقات أندرويد وiOS مصممة حسب احتياجات عملك.' },
+        { icon: 'it', title: 'حلول تقنية المعلومات', desc: 'بنية تحتية آمنة تُبقي أعمالك متصلة دائمًا.' },
+        { icon: 'learn', title: 'التعليم الإلكتروني', desc: 'منصة ذكية وقابلة للتوسع للتعلّم الرقمي الحديث.' },
+      ],
+      industriesTitle: 'القطاعات التي نخدمها',
+      industriesSub: 'نقدّم حلولًا للشركات في مختلف القطاعات.',
+      industries: [
+        { icon: 'health', label: 'الرعاية الصحية' },
+        { icon: 'construction', label: 'الإنشاءات' },
+        { icon: 'retail', label: 'تجارة التجزئة' },
+        { icon: 'ecommerce', label: 'التجارة الإلكترونية' },
+        { icon: 'logistics', label: 'الخدمات اللوجستية' },
+        { icon: 'education', label: 'التعليم' },
+      ],
+      ctaTitle: 'هل أنت مستعد لتحويل أعمالك؟',
+    },
+    services: {
+      heroSerif: 'إمكانيات بلا حدود',
+      heroRest: ' لأعمالك.',
+      lead: 'من البنية التحتية لتقنية المعلومات إلى تطوير الويب والجوال، اكتشف حلولًا مصممة لتنمو معك.',
+      ourServices: 'خدماتنا',
+      keyFeatures: 'المميزات الرئيسية',
+      cards: [
+        {
+          icon: 'erp',
+          title: 'نظام ERP',
+          sub: 'نظام متكامل لإدارة عمليات الأعمال والمالية والموارد',
+          imageClass: 'wide',
+          features: [
+            ['نظام مركزي', 'أدر جميع الأقسام (الموارد البشرية، المالية، المبيعات، المخزون) في منصة واحدة.'],
+            ['الإدارة المالية', 'تتبّع المصروفات والإيرادات والضرائب وأنشئ تقارير دقيقة.'],
+            ['المخزون والمستودعات', 'راقب المخزون وأدر المشتريات وتتبّع الأصناف بالباركود أو رمز QR.'],
+            ['المبيعات وإدارة العملاء', 'تتبّع العملاء وأدر المبيعات وحسّن علاقاتك معهم.'],
+            ['إدارة العمليات', 'نظّم سير العمل اليومي وحسّن تنسيق الفرق.'],
+            ['التقارير والتحليلات', 'لوحات متابعة لحظية لاتخاذ قرارات أفضل.'],
+          ],
+        },
+        {
+          icon: 'hr',
+          title: 'نظام إدارة الموارد البشرية',
+          sub: 'نظام كامل لإدارة الموظفين والحضور والمهام والعمليات في منصة واحدة.',
+          imageClass: 'tall',
+          features: [
+            ['إدارة الرواتب', 'حساب الرواتب والخصومات والمدفوعات آليًا وبدقة عالية.'],
+            ['الحضور المتقدم', 'تسجيل الحضور والانصراف ببصمة الوجه مع كشف الحيوية وتتبع GPS، مع دعم تعدد المواقع والعمل الإضافي والتأخير والغياب.'],
+            ['نظام الطلبات', 'إدارة طلبات الموارد البشرية وتقنية المعلومات (إجازات، أذونات، دعم) مع سير اعتماد وإشعارات.'],
+            ['إدارة المهام', 'إسناد المهام وتحديد المواعيد وتتبع التقدم وإدارة المرفقات.'],
+            ['متابعة الأداء', 'تقييم أداء الموظفين بتقارير منظمة ورؤى واضحة.'],
+            ['الجوال والإشعارات', 'كل المميزات متاحة على الجوال والويب مع تنبيهات لحظية.'],
+          ],
+        },
+        {
+          icon: 'mobile',
+          title: 'تطوير تطبيقات الجوال والويب',
+          sub: 'تطبيقات ومواقع حديثة مصممة لتقديم تجارب رقمية سلسة.',
+          imageClass: 'tall',
+          features: [
+            ['تطوير تطبيقات جوال مخصصة', 'بناء تطبيقات أندرويد وiOS حسب احتياجات العمل.'],
+            ['تطوير تطبيقات الويب', 'تطبيقات ويب متجاوبة وآمنة لجميع المتصفحات والأجهزة.'],
+            ['حلول متعددة المنصات', 'تطبيقات تعمل بكفاءة عبر منصات متعددة.'],
+            ['تصميم واجهات وتجربة المستخدم', 'تصميم تجارب استخدام حديثة وسهلة.'],
+            ['الصيانة والدعم', 'تحديثات مستمرة وتحسينات في الأمان والأداء.'],
+          ],
+        },
+        {
+          icon: 'it',
+          title: 'حلول البنية التحتية لتقنية المعلومات',
+          sub: 'بنية تحتية آمنة تُبقي أعمالك متصلة وفعّالة ومحمية.',
+          imageClass: 'wide',
+          features: [
+            ['تسجيل النطاقات وإدارتها', 'سجّل نطاقات شركتك وأدرها بتحكم كامل وموثوقية.'],
+            ['إعداد بريد أعمال احترافي', 'حسابات بريد آمنة باسم شركتك لتواصل احترافي.'],
+            ['بنية شبكات آمنة', 'تصميم وتنفيذ بيئات شبكية آمنة ومستقرة لعملياتك.'],
+            ['حلول سحابية قابلة للتوسع', 'أنظمة سحابية مرنة تنمو مع احتياجات أعمالك.'],
+            ['دعم فني موثوق', 'دعم مستمر للحفاظ على الأداء والأمان والاستمرارية.'],
+          ],
+        },
+        {
+          icon: 'learn',
+          title: 'نظام التعليم الإلكتروني',
+          sub: 'منصة ذكية وقابلة للتوسع للتعلّم الرقمي الحديث.',
+          imageClass: 'wide',
+          features: [
+            ['اختبارات ذكية عبر الإنترنت', 'اختبارات وتقييمات آلية مع متابعة الأداء لحظيًا.'],
+            ['جلسات تفاعلية مباشرة', 'دمج الحصص المباشرة والندوات والاجتماعات عبر Zoom API.'],
+            ['تخزين سحابي آمن', 'تخزين محتوى الدورات وإدارته بأمان وأداء عالٍ.'],
+            ['إدارة قوية للدورات', 'إنشاء الدورات وتنظيمها وتحديثها بسهولة ومرونة.'],
+            ['يحسّن تجربة التعلم ويزيد التفاعل ويبسّط إدارة العملية التعليمية.', ''],
+          ],
+        },
+      ],
+      savesTitle: 'ماذا توفّر معنا',
+      saves: ['وفّر التكاليف', 'وفّر الوقت', 'قلّل عبء العمل', 'أمّن بياناتك'],
+      ctaTitle: 'هل أنت مستعد لتنمية أعمالك؟',
+      contactUs: 'تواصل معنا',
+    },
+    contact: {
+      title: 'تواصل معنا',
+      lead: 'لنتحدث عن كيف يمكننا مساعدة أعمالك على النمو.',
+      getInTouch: 'ابقَ على تواصل',
+      getInTouchSub: 'نحن هنا لمساعدتك في بناء الحل المناسب.',
+      infoLabels: { email: 'البريد الإلكتروني', phone: 'الهاتف', location: 'الموقع', hours: 'ساعات العمل' },
+      infoValues: { phone: '+20 XXX XXX XXXX', location: 'القاهرة، مصر', hours: 'على مدار الساعة' },
+      sendUs: 'أرسل لنا رسالة',
+      fullName: 'الاسم الكامل',
+      company: 'اسم الشركة',
+      phone: 'رقم الهاتف',
+      field: 'المجال',
+      message: 'الرسالة',
+      messagePlaceholder: 'كيف يمكننا مساعدتك؟',
+      send: 'إرسال الرسالة',
+      opening: 'جارٍ فتح تطبيق البريد…',
+      fields: ['نظام ERP', 'إدارة الموارد البشرية', 'تطوير الجوال والويب', 'البنية التحتية لتقنية المعلومات', 'التعليم الإلكتروني', 'أخرى'],
+    },
+    why: {
+      title: 'لماذا إينوكتا؟',
+      sub: 'هندسة التميّز الرقمي',
+      lead: 'حلول مبنية بدقة لتتوسع وتؤدي وتتصدر.',
+      requestDemo: 'اطلب عرضًا تجريبيًا',
+      viewServices: 'عرض الخدمات',
+      benefits: [
+        { title: 'وفّر التكاليف', desc: 'قلّل مصروفات عملك وتجنّب الإنفاق غير الضروري.' },
+        { title: 'وفّر الوقت', desc: 'أنجز المهام أسرع بالأتمتة الذكية.' },
+        { title: 'قلّل عبء العمل', desc: 'قلّل العمل اليدوي وبسّط العمليات اليومية.' },
+        { title: 'أمّن بياناتك', desc: 'احفظ بياناتك آمنة ومتاحة على السحابة.' },
+      ],
+      builtTitle: 'مصمم حول أعمالك',
+      builtDesc: 'كل حل مصمم خصيصًا لسير عملك وعملياتك وخطة نموك.',
+      moreTitle: 'أكثر من مجرد مزوّد خدمات',
+      moreLead: 'إينوكتا شريكك التقني طويل الأمد — ندعم أعمالك في كل مرحلة من مراحل النمو.',
+      readyTitle: 'هل أنت مستعد للبناء بذكاء؟',
+      readyLead: 'لنبتكر حلولًا تدفع أعمالك إلى الأمام.',
+      bookAppointment: 'احجز موعدًا',
+    },
+    book: {
+      title: 'احجز موعدًا',
+      lead: 'اختر التاريخ والوقت المناسبين لك — ونتولى نحن الباقي.',
+      months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+      monthsFull: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+      dow: ['أح', 'إث', 'ثل', 'أر', 'خم', 'جم', 'سب'],
+      apply: 'تطبيق',
+      enterTime: 'أدخل الوقت',
+      hour: 'الساعة',
+      minute: 'الدقيقة',
+      cancel: 'إلغاء',
+      ok: 'موافق',
+      yourAppointment: 'موعدك',
+      date: 'التاريخ',
+      time: 'الوقت',
+      pickDate: 'اختر تاريخًا واضغط «تطبيق»',
+      enterHour: 'أدخل الساعة',
+      confirm: 'تأكيد الحجز',
+      opening: 'جارٍ فتح تقويم Google…',
+      orEmail: 'أو راسلنا عبر البريد الإلكتروني',
+      trialNote: 'شهر تجريبي مجاني – بدون أي دفع',
+      eventTitle: 'اجتماع مع إينوكتا',
+      eventDetails: 'تم طلب الموعد عبر موقع إينوكتا.',
+    },
+  },
+}
+
+const LangContext = createContext({ lang: 'en', toggle: () => {}, t: T.en })
+
+export function LangProvider({ children }) {
+  const [lang, setLang] = useState(() => {
+    try {
+      return localStorage.getItem('inukta-lang') === 'ar' ? 'ar' : 'en'
+    } catch {
+      return 'en'
+    }
+  })
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('inukta-lang', lang)
+    } catch {
+      /* private mode */
+    }
+    document.documentElement.lang = lang
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
+  }, [lang])
+
+  const toggle = () => setLang((l) => (l === 'en' ? 'ar' : 'en'))
+
+  return (
+    <LangContext.Provider value={{ lang, toggle, t: T[lang] }}>
+      {children}
+    </LangContext.Provider>
+  )
+}
+
+export function useLang() {
+  return useContext(LangContext)
+}

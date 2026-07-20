@@ -344,6 +344,7 @@ h1 {
   letter-spacing: 0.04em; font-size: 0.9rem;
 }
 .text-btn:disabled { color: var(--muted); cursor: not-allowed; }
+.email-fallback { margin-top: 14px; width: 100%; text-align: center; }
 
 .summary-card h3 { font-size: 1.4rem; margin-bottom: 18px; }
 .summary-card ul { list-style: none; margin-bottom: 24px; }
@@ -377,6 +378,25 @@ h1 {
 .footer-bottom a { text-decoration: underline; }
 .socials { display: flex; gap: 18px; }
 .socials a { color: #fff; display: flex; }
+
+/* ---------- Arabic / RTL ---------- */
+html[lang='ar'] body,
+html[lang='ar'] button,
+html[lang='ar'] input,
+html[lang='ar'] select,
+html[lang='ar'] textarea {
+  font-family: 'Tajawal', var(--sans);
+}
+html[lang='ar'] .serif-blue { font-family: 'Tajawal', var(--sans); font-weight: 700; }
+html[lang='ar'] h1,
+html[lang='ar'] .section-title { letter-spacing: 0; }
+[dir='rtl'] .month-rail {
+  margin-left: 0; margin-right: 8px;
+  padding-left: 0; padding-right: 10px;
+  border-left: none; border-right: 1px solid var(--border);
+}
+[dir='rtl'] .time-inputs { direction: ltr; justify-content: flex-end; }
+[dir='rtl'] .hero-copy .lead { margin-right: 0; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1020px) {

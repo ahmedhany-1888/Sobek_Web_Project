@@ -91,7 +91,7 @@ h1 {
   display: flex; align-items: center; justify-content: space-between;
   min-height: var(--header-h); gap: 18px;
 }
-.brand img { height: 56px; width: auto; }
+.brand img { height: 68px; width: auto; }
 .main-nav { display: flex; gap: 40px; font-size: 1.06rem; }
 .main-nav a { color: var(--ink); padding: 6px 2px; }
 .main-nav a.active { color: var(--blue); }
@@ -199,7 +199,8 @@ h1 {
 .features p { color: var(--body); font-size: 0.97rem; }
 .detail-image img { border-radius: 10px; }
 .detail-image.tall { display: flex; justify-content: center; }
-.detail-image.tall img { max-height: 560px; width: auto; }
+/* never upscale app screenshots past ~1x — they blur */
+.detail-image.tall img { max-height: 430px; width: auto; }
 
 /* ---------- Saves ---------- */
 .saves { padding: 90px 0 20px; }
@@ -210,7 +211,7 @@ h1 {
 .save-tile {
   background: #fff; border-radius: 14px; box-shadow: var(--shadow);
   padding: 34px 18px; display: flex; flex-direction: column;
-  align-items: center; gap: 12px;
+  align-items: center; gap: 12px; text-align: center;
 }
 .save-tile .serif-blue { font-size: 1.25rem; }
 
@@ -255,7 +256,7 @@ h1 {
 }
 .benefit-card { text-align: center; padding: 34px 26px; }
 .benefit-title {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
   font-size: 1.35rem; margin-bottom: 10px;
 }
 .benefit-card p { color: var(--body); }
@@ -356,6 +357,14 @@ h1 {
 .summary-card .btn { width: 100%; }
 .summary-card .trial-note { font-size: 0.9rem; text-align: center; margin-top: 16px; }
 
+/* ---------- Privacy ---------- */
+.privacy-section { padding: 30px 0 90px; }
+.privacy-body { max-width: 760px; }
+.privacy-updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; text-align: center; }
+.privacy-card { margin-bottom: 18px; }
+.privacy-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.privacy-card p { color: var(--body); }
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--footer-blue); color: #fff; margin-top: 40px;
@@ -365,14 +374,15 @@ h1 {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 20px;
 }
-.footer-logo { height: 62px; width: auto; filter: brightness(0) invert(1); }
+.footer-logo { height: 92px; width: auto; filter: brightness(0) invert(1); }
 .footer-nav { display: flex; gap: 34px; font-size: 1.05rem; }
 .footer-nav a:hover { text-decoration: underline; }
 .footer-tagline { margin: 26px 0 60px; max-width: 480px; font-size: 1.15rem; }
 .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.25); }
 .footer-bottom-inner {
   display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 14px; padding-top: 22px; padding-bottom: 22px;
+  flex-wrap: wrap; gap: 14px; padding-top: 22px;
+  padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
   font-size: 0.95rem;
 }
 .footer-bottom a { text-decoration: underline; }
@@ -423,10 +433,10 @@ html[lang='ar'] .section-title { letter-spacing: 0; }
 }
 
 @media (max-width: 680px) {
-  :root { --header-h: 64px; }
+  :root { --header-h: 68px; }
   .container { padding: 0 18px; }
   .header-inner { gap: 10px; }
-  .brand img { height: 38px; }
+  .brand img { height: 50px; }
   .header-actions { gap: 8px; }
   .header-actions .btn { padding: 9px 12px; font-size: 0.8rem; border-radius: 8px; white-space: nowrap; }
   .lang svg { width: 20px; height: 20px; }
@@ -439,7 +449,11 @@ html[lang='ar'] .section-title { letter-spacing: 0; }
   .section-title.lined { gap: 14px; }
   .service-cards { grid-template-columns: 1fr; gap: 62px; }
   .industry-row { grid-template-columns: repeat(2, 1fr); }
-  .save-tiles { grid-template-columns: 1fr; }
+  .saves { padding: 40px 0 10px; }
+  .save-tiles { grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 40px; }
+  .save-tile { padding: 22px 12px; gap: 8px; }
+  .benefit-grid { grid-template-columns: 1fr; }
   .booking-grid { grid-template-columns: 1fr; }
   .detail-card { padding: 30px 22px; }
+  .footer-logo { height: 72px; }
 }

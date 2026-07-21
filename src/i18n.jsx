@@ -165,6 +165,18 @@ const T = {
       readyLead: 'Let’s create solutions that move your business forward.',
       bookAppointment: 'Book an appointment',
     },
+    privacy: {
+      title: 'Privacy Policy',
+      updated: 'Last updated: July 2026',
+      intro: 'Inukta ("we") respects your privacy. This page explains what information this website handles and how it is used.',
+      sections: [
+        ['Information you share', 'Our contact and booking forms open your own email or calendar app — the details you type are sent by you directly to us and are not stored on this website.'],
+        ['What we store on your device', 'Only your language preference (English or Arabic) is saved in your browser. We do not use tracking cookies.'],
+        ['How we use your information', 'Details you send us by email are used only to respond to your inquiry or arrange your appointment.'],
+        ['Third-party links', 'Links to social networks (Facebook, Instagram, LinkedIn, YouTube) and Google Calendar are governed by those services’ own privacy policies.'],
+        ['Contact', 'For any privacy question, email us at info@inukta.com.'],
+      ],
+    },
     book: {
       title: 'Book an appointment',
       lead: 'Pick a date and time that suits you — we’ll take it from there.',
@@ -354,6 +366,18 @@ const T = {
       readyTitle: 'هل أنت مستعد للبناء بذكاء؟',
       readyLead: 'لنبتكر حلولًا تدفع أعمالك إلى الأمام.',
       bookAppointment: 'احجز موعدًا',
+    },
+    privacy: {
+      title: 'سياسة الخصوصية',
+      updated: 'آخر تحديث: يوليو 2026',
+      intro: 'تحترم إينوكتا خصوصيتك. توضح هذه الصفحة المعلومات التي يتعامل معها هذا الموقع وكيفية استخدامها.',
+      sections: [
+        ['المعلومات التي تشاركها', 'نماذج التواصل والحجز تفتح تطبيق البريد أو التقويم الخاص بك — البيانات التي تكتبها تُرسل منك إلينا مباشرة ولا تُخزَّن على هذا الموقع.'],
+        ['ما نحفظه على جهازك', 'نحفظ فقط تفضيل اللغة (العربية أو الإنجليزية) في متصفحك. لا نستخدم ملفات تعريف ارتباط للتتبع.'],
+        ['كيف نستخدم معلوماتك', 'البيانات التي ترسلها إلينا عبر البريد تُستخدم فقط للرد على استفسارك أو ترتيب موعدك.'],
+        ['روابط الجهات الخارجية', 'روابط شبكات التواصل (فيسبوك، إنستغرام، لينكدإن، يوتيوب) وتقويم Google تخضع لسياسات الخصوصية الخاصة بتلك الخدمات.'],
+        ['التواصل', 'لأي سؤال عن الخصوصية، راسلنا على info@inukta.com.'],
+      ],
     },
     book: {
       title: 'احجز موعدًا',

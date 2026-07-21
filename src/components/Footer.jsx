@@ -48,7 +48,9 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container footer-top">
-        <img src={logo} alt="Inukta" className="footer-logo" />
+        <Link to="/" aria-label="Inukta home">
+          <img src={logo} alt="Inukta" className="footer-logo" />
+        </Link>
         <nav className="footer-nav">
           <Link to="/why-inukta">{t.footer.about}</Link>
           <Link to="/services">{t.footer.services}</Link>
@@ -62,7 +64,7 @@ export default function Footer() {
         <div className="container footer-bottom-inner">
           <p>
             Copyright © {new Date().getFullYear()}, Inukta. {t.footer.rights}.{' '}
-            <a href="#privacy">{t.footer.privacy}</a>.
+            <Link to="/privacy">{t.footer.privacy}</Link>.
           </p>
           <div className="socials">
             {SOCIALS.map((s) => (

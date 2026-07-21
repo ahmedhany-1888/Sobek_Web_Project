@@ -7,6 +7,7 @@ import Services from './pages/Services.jsx'
 import Contact from './pages/Contact.jsx'
 import Why from './pages/Why.jsx'
 import Book from './pages/Book.jsx'
+import Privacy from './pages/Privacy.jsx'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/why-inukta" element={<Why />} />
         <Route path="/book" element={<Book />} />
+        <Route path="/privacy" element={<Privacy />} />
       </Routes>
       <Footer />
     </>

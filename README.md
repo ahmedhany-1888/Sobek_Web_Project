@@ -17,3 +17,4 @@ npm run build
 The static site is generated in `dist/` and can be hosted on any static host
 (Vercel, Netlify, GitHub Pages, S3, ...). For client-side routing to work,
 configure the host to serve index.html for unknown paths.
+--

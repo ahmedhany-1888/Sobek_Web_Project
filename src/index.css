@@ -12,7 +12,7 @@
   --shadow: 0 12px 34px rgba(16, 42, 78, 0.08);
   --serif: 'Zilla Slab', Georgia, serif;
   --sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
-  --header-h: 84px;
+  --header-h: 90px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -91,16 +91,24 @@ h1 {
   display: flex; align-items: center; justify-content: space-between;
   min-height: var(--header-h); gap: 18px;
 }
-.brand img { height: 68px; width: auto; }
+.brand img { height: 62px; width: auto; }
 .main-nav { display: flex; gap: 40px; font-size: 1.06rem; }
 .main-nav a { color: var(--ink); padding: 6px 2px; }
 .main-nav a.active { color: var(--blue); }
 .main-nav a:hover { color: var(--blue); }
 .header-actions { display: flex; align-items: center; gap: 16px; }
+.book-short { display: none; }
 .lang {
-  display: flex; flex-direction: column; align-items: center;
-  background: none; border: none; color: var(--ink); font-size: 0.72rem;
+  display: flex; align-items: center; gap: 3px;
+  background: none; border: none; color: var(--ink); padding: 2px;
 }
+.lang-globe { width: 30px; height: 30px; flex-shrink: 0; }
+.lang-meta {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  line-height: 1;
+}
+.lang-flag { font-size: 0.85rem; }
+.lang-code { font-size: 0.78rem; color: var(--body); white-space: nowrap; }
 .nav-toggle { display: none; background: none; border: none; }
 .nav-toggle span {
   display: block; width: 22px; height: 2px; background: var(--ink); margin: 5px 0;
@@ -114,6 +122,9 @@ h1 {
   gap: 48px; align-items: center;
 }
 .hero-art img { width: 100%; height: auto; }
+/* Phone screenshot in the hero — cap height so the portrait mockup stays tidy */
+.hero-art.phone-hero { display: flex; justify-content: center; }
+.hero-art.phone-hero img { width: auto; height: auto; max-height: 560px; }
 .trial-note { margin-top: 26px; color: var(--ink); font-size: 1.05rem; }
 .hero-center h1 { max-width: 900px; margin: 0 auto; }
 .why-sub { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 600; margin-top: 6px; }
@@ -268,6 +279,10 @@ h1 {
 .built-card h3 { font-size: 1.6rem; margin-bottom: 10px; }
 .built-card p { color: var(--body); }
 .built-card img { border-radius: 12px; }
+/* Portrait phone screenshot — cap height and centre it in the wider column */
+.built-card img.built-phone {
+  width: auto; height: auto; max-height: 480px; justify-self: center; border-radius: 0;
+}
 
 /* ---------- Booking ---------- */
 .booking { padding: 50px 0 100px; }
@@ -374,7 +389,7 @@ h1 {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 20px;
 }
-.footer-logo { height: 92px; width: auto; filter: brightness(0) invert(1); }
+.footer-logo { height: 46px; width: auto; filter: brightness(0) invert(1); }
 .footer-nav { display: flex; gap: 34px; font-size: 1.05rem; }
 .footer-nav a:hover { text-decoration: underline; }
 .footer-tagline { margin: 26px 0 60px; max-width: 480px; font-size: 1.15rem; }
@@ -395,11 +410,17 @@ html[lang='ar'] button,
 html[lang='ar'] input,
 html[lang='ar'] select,
 html[lang='ar'] textarea {
-  font-family: 'Tajawal', var(--sans);
+  font-family: 'IBM Plex Sans Arabic', var(--sans);
 }
-html[lang='ar'] .serif-blue { font-family: 'Tajawal', var(--sans); font-weight: 700; }
+html[lang='ar'] .serif-blue { font-family: 'IBM Plex Sans Arabic', var(--sans); font-weight: 600; }
+/* Arabic reads heavier than Latin at the same weight — ease it back a step */
 html[lang='ar'] h1,
-html[lang='ar'] .section-title { letter-spacing: 0; }
+html[lang='ar'] .section-title { letter-spacing: 0; font-weight: 600; }
+html[lang='ar'] .detail-head h3,
+html[lang='ar'] .benefit-title,
+html[lang='ar'] .card-title,
+html[lang='ar'] .features strong { font-weight: 600; }
+html[lang='ar'] body { line-height: 1.75; }
 [dir='rtl'] .month-rail {
   margin-left: 0; margin-right: 8px;
   padding-left: 0; padding-right: 10px;
@@ -433,14 +454,17 @@ html[lang='ar'] .section-title { letter-spacing: 0; }
 }
 
 @media (max-width: 680px) {
-  :root { --header-h: 68px; }
+  :root { --header-h: 72px; }
   .container { padding: 0 18px; }
   .header-inner { gap: 10px; }
-  .brand img { height: 50px; }
+  .brand img { height: 44px; }
   .header-actions { gap: 8px; }
-  .header-actions .btn { padding: 9px 12px; font-size: 0.8rem; border-radius: 8px; white-space: nowrap; }
-  .lang svg { width: 20px; height: 20px; }
-  .lang { font-size: 0.62rem; }
+  .header-actions .btn { padding: 9px 14px; font-size: 0.85rem; border-radius: 8px; white-space: nowrap; }
+  .book-full { display: none; }
+  .book-short { display: inline; }
+  .lang-globe { width: 22px; height: 22px; }
+  .lang-flag { font-size: 0.7rem; }
+  .lang-code { font-size: 0.66rem; }
   .hero { padding: 48px 0 40px; }
   .hero.compact { padding: 44px 0 8px; }
   .trusted { padding: 40px 0 20px; }
@@ -455,5 +479,5 @@ html[lang='ar'] .section-title { letter-spacing: 0; }
   .benefit-grid { grid-template-columns: 1fr; }
   .booking-grid { grid-template-columns: 1fr; }
   .detail-card { padding: 30px 22px; }
-  .footer-logo { height: 72px; }
+  .footer-logo { height: 36px; }
 }

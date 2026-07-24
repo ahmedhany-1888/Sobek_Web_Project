@@ -23,14 +23,21 @@ export default function Header() {
 
         <div className="header-actions">
           <Link to="/book" className="btn btn-primary" onClick={close}>
-            {t.nav.book}
+            <span className="book-full">{t.nav.book}</span>
+            <span className="book-short">{t.nav.bookShort}</span>
           </Link>
-          <button className="lang" type="button" onClick={toggle} aria-label={t.nav.langLabel}>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M2 12h20M12 2c2.7 2.9 4 6.4 4 10s-1.3 7.1-4 10c-2.7-2.9-4-6.4-4-10s1.3-7.1 4-10z" />
+          <button className="lang" type="button" onClick={toggle} aria-label={t.nav.langLabel} title={t.nav.langLabel}>
+            <svg className="lang-globe" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="11" fill="currentColor" />
+              <g fill="none" stroke="#fff" strokeWidth="1.9">
+                <path d="M1 12h22M4 6.5h16M4 17.5h16" />
+                <path d="M12 1c3 3.2 4.5 7 4.5 11S15 20.8 12 23c-3-2.2-4.5-7-4.5-11S9 4.2 12 1z" />
+              </g>
             </svg>
-            <span>{t.nav.langLabel}</span>
+            <span className="lang-meta">
+              <span className="lang-flag" aria-hidden="true">{t.nav.langFlag}</span>
+              <span className="lang-code">({t.nav.langCode}) ▾</span>
+            </span>
           </button>
           <button
             className="nav-toggle"

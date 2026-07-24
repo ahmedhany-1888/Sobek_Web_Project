@@ -1,11 +1,22 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
-import dash from '../assets/dash.png'
-import phoneHr from '../assets/phone-hr.png'
-import phoneHome from '../assets/phone-home.png'
+import payslipsEn from '../assets/app-payslips-en.png'
+import payslipsAr from '../assets/app-payslips-ar.png'
+import requestsEn from '../assets/app-requests-en.png'
+import requestsAr from '../assets/app-requests-ar.png'
+import taskEn from '../assets/app-task-en.png'
+import taskAr from '../assets/app-task-ar.png'
+import homeEn from '../assets/app-home-en.png'
+import homeAr from '../assets/app-home-ar.png'
+import tasksEn from '../assets/app-tasks-en.png'
+import tasksAr from '../assets/app-tasks-ar.png'
 import { ServiceIcon } from './Home.jsx'
 
-const cardImages = { erp: dash, hr: phoneHr, mobile: phoneHome, it: dash, learn: dash }
+// Real app screenshots, matched to the visitor's language (EN screens for EN, AR for AR).
+const cardImages = {
+  en: { erp: payslipsEn, hr: requestsEn, mobile: taskEn, it: homeEn, learn: tasksEn },
+  ar: { erp: payslipsAr, hr: requestsAr, mobile: taskAr, it: homeAr, learn: tasksAr },
+}
 
 const saves = [
   {
@@ -46,7 +57,7 @@ const saves = [
 ]
 
 export default function Services() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const sv = t.services
   return (
     <main>
@@ -85,8 +96,8 @@ export default function Services() {
                     ))}
                   </ul>
                 </div>
-                <div className={`detail-image ${s.imageClass}`}>
-                  <img src={cardImages[s.icon]} alt={s.title} />
+                <div className="detail-image tall">
+                  <img src={cardImages[lang][s.icon]} alt={s.title} />
                 </div>
               </div>
             </article>

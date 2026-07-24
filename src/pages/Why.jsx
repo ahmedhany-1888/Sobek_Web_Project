@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
-import dash from '../assets/dash.png'
+import appEn from '../assets/app-overview-en.png'
+import appAr from '../assets/app-overview-ar.png'
 
 const benefitIcons = [
   {
@@ -39,7 +40,7 @@ const benefitIcons = [
 ]
 
 export default function Why() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const w = t.why
   return (
     <main>
@@ -76,7 +77,7 @@ export default function Why() {
               <h3 className="serif-blue">{w.builtTitle}</h3>
               <p>{w.builtDesc}</p>
             </div>
-            <img src={dash} alt="Inukta dashboard" />
+            <img className="built-phone" src={lang === 'ar' ? appAr : appEn} alt="Inukta mobile app" />
           </div>
         </div>
       </section>

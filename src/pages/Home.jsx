@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLang } from '../i18n.jsx'
-import hero from '../assets/hero.png'
+import heroEn from '../assets/app-attendance-en.png'
+import heroAr from '../assets/app-attendance-ar.png'
 
 export function ServiceIcon({ name }) {
   const stroke = { fill: 'none', stroke: '#1173d4', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' }
@@ -109,7 +110,7 @@ export function IndustryIcon({ name }) {
 }
 
 export default function Home() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const h = t.home
   return (
     <main>
@@ -132,8 +133,8 @@ export default function Home() {
             </div>
             <p className="trial-note">{h.trialNote}</p>
           </div>
-          <div className="hero-art">
-            <img src={hero} alt="Inukta platform on desktop and mobile" />
+          <div className="hero-art phone-hero">
+            <img src={lang === 'ar' ? heroAr : heroEn} alt="Inukta mobile app" />
           </div>
         </div>
       </section>

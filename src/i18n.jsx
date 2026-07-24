@@ -7,7 +7,10 @@ const T = {
       contact: 'Contact',
       why: 'Why Inukta?',
       book: 'Book an appointment',
+      bookShort: 'Book',
       langLabel: 'العربية',
+      langCode: 'en',
+      langFlag: '🇬🇧',
     },
     footer: {
       about: 'About Us',
@@ -209,7 +212,10 @@ const T = {
       contact: 'تواصل معنا',
       why: 'لماذا إينوكتا؟',
       book: 'احجز موعدًا',
+      bookShort: 'احجز',
       langLabel: 'English',
+      langCode: 'ar',
+      langFlag: '🇪🇬',
     },
     footer: {
       about: 'من نحن',
